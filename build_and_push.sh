@@ -1,8 +1,18 @@
 #!/bin/bash
 
+if [ $# -gt 0 ]; then
+  echo $1
+  export IMAGE_NAME=$1
 
-sudo docker build -t ivahl/gitmes .
+else
+  echo 'Usage: ./build_and_push.sh <IMAGE_NAME>'
+  exit 1
 
-sudo docker tag ivahl/gitmes ivahl/gitmes:latest
+fi
 
-sudo docker push ivahl/gitmes:latest
+
+sudo docker build -t ${IMAGE_NAME} .
+
+sudo docker tag ${IMAGE_NAME} ${IMAGE_NAME}:latest
+
+sudo docker push ${IMAGE_NAME}:latest
